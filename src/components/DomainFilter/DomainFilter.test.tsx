@@ -5,7 +5,7 @@ import DomainFilter from './DomainFilter.component';
 describe('components', () => {
   describe('DomainFilter', () => {
     it('should allow the user to filter', () => {
-      const wrapper = shallow(<DomainFilter domains={['do']} />);
+      const wrapper = shallow(<DomainFilter domains={['US_OK-WOK']} />);
 
       expect(wrapper.find('select')).toHaveLength(3);
     })
