@@ -1,7 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
 
+export interface Filters {
+  countries: [],
+  classifications: [],
+  subClassifications: []
+};
+
 interface Props {
-  domains: string[]
+  domains: string[],
+  changeSelectedDomainFilters: (domains:Filters) => void
 };
 
 export const getListFromDomains = (domains: string[]) => {
