@@ -11,14 +11,18 @@ interface Props {
 }
 
 class DomainFilter extends React.Component<Props, State> {
-  componentDidMount() {
-    const { domains } = this.props
+  constructor(props:Props) {
+    super(props);
     this.state = {
       countries: [],
       classifications: [],
       subClassifications: []
     }
+  }
 
+  componentDidMount() {
+    const { domains } = this.props
+    
     for(let i = 0; i < domains.length; i++) {
       if (this.state.countries.indexOf(domains[i].substring(0,2)) <= 0) {
         this.state.countries.push(domains[i].substring(0,2))
