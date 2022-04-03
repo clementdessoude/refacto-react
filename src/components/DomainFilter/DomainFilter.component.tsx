@@ -1,10 +1,4 @@
-import React, { useState } from 'react';
-
-interface State {
-  countries: string[],
-  classifications: string[],
-  subClassifications: string[]
-};
+import React, { useState, ChangeEvent } from 'react';
 
 interface Props {
   domains: string[]
@@ -39,18 +33,25 @@ const DomainFilter = ({ domains }: Props) => {
 
   const [ countries, classifications, subClassifications ] = getListFromDomains(domains);
 
+  const handleChange = (stateElement:string) => (event: ChangeEvent<HTMLSelectElement>) => {
+    setState({
+      ...state,
+      [stateElement]: Array.from(event.target.selectedOptions).map(option => option.value.toString())
+    });
+  };
+
   return (<>
-    <select name="countries" multiple>
+    <select name="countries" multiple onChange={handleChange('countries')}>
       {countries.map(country => (
         <option value={country} key={country}>{country}</option>
       ))}
     </select>
-    <select name="classifications" multiple>
+    <select name="classifications" multiple onChange={handleChange('classifications')}>
       {classifications.map(classification => (
         <option value={classification} key={classification}>{classification}</option>
       ))}
     </select>
-    <select name="subClassifications" multiple>
+    <select name="subClassifications" multiple onChange={handleChange('subClassifications')}>
       {subClassifications.map(subClassification => (
         <option value={subClassification} key={subClassification}>{subClassification}</option>
       ))}
