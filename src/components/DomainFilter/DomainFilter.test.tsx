@@ -5,7 +5,7 @@ import DomainFilter, { getListFromDomains } from './DomainFilter.component';
 describe('components', () => {
   describe('DomainFilter', () => {
     it('should allow the user to filter', () => {
-      const wrapper = shallow(<DomainFilter domains={['US_OK-WOK']} />);
+      const wrapper = shallow(<DomainFilter domains={['US_OK-WOK']} changeSelectedDomainFilters={() => {}} />);
       expect(wrapper.find('select')).toHaveLength(3);
     })
 
@@ -18,17 +18,17 @@ describe('components', () => {
     ];
 
     it('should render correction number of countries', () => {
-      const wrapper = shallow(<DomainFilter domains={domains} />);
+      const wrapper = shallow(<DomainFilter domains={domains} changeSelectedDomainFilters={() => {}} />);
       expect(wrapper.find('select[name="countries"] option')).toHaveLength(3);
     })
 
     it('should render correction number of classifications', () => {
-      const wrapper = shallow(<DomainFilter domains={domains} />);
+      const wrapper = shallow(<DomainFilter domains={domains} changeSelectedDomainFilters={() => {}} />);
       expect(wrapper.find('select[name="classifications"] option')).toHaveLength(3);
     })
 
     it('should render correction number of subclassifications', () => {
-      const wrapper = shallow(<DomainFilter domains={domains} />);
+      const wrapper = shallow(<DomainFilter domains={domains} changeSelectedDomainFilters={() => {}} />);
       expect(wrapper.find('select[name="subClassifications"] option')).toHaveLength(4);
     })
 
