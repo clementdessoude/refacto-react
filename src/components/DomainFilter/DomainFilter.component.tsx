@@ -48,11 +48,7 @@ class DomainFilter extends React.Component<Props, State> {
   }
 
   render() {
-    const {countries, classifications, subClassifications} = this.state || {
-      countries: [],
-      classifications: [],
-      subClassifications: []
-    };
+    const {countries, classifications, subClassifications} = this.state;
 
     return (<>
       <select name="countries" multiple>
