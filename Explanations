@@ -1,0 +1,49 @@
+Je m'arrête au bout d'1h20, afin de pouvoir expliquer ma démarche dans ce fichier.
+
+---------
+
+La première chose qui m'a gêné et l'absence d'automatisme dans le code, il n'y a pas de configuration de lint, de prettier,
+de tests qui se lance automatiquement a chaque commit.
+
+Si j'avais eu plus de temps, j'aurais d'abord installer plus de contrôle qualité dans ce début de projet, sans doute déjà
+défini dans le code style de l'entreprise, ou dans un template de création de projet par défaut.
+
+J'ai donc mis seulement husky en place, pour lancer les tests en pre-commit, car cela m'a paru le meilleur ratio temps/efficacité.
+
+---------
+
+J'ai ensuite converti le composant class en fonction, à dire vrai, je fais du React depuis 4 ans, et je n'ai jamais vraiment travaillé
+sur un projet avec des class, purecomponent, etc ...
+
+Alors je l'ai fait mécaniquement, je trouve la lecture plus simple, et React nous conseille de faire la transition au plus tôt.
+
+---------
+
+J'ai enrichi le composant, avec les proptypes, un displayName, cela simplifiera la vie pour respectivement éviter des erreurs
+et plus facilement debugger.
+
+J'ai séparé les types, du composant, habitude mécanique aussi, je ne souhaite pas que mes fichiers soit trop large.
+
+----------
+
+Je me suis ensuite attaqué a extraire les trois selects dans un composant, pour pouvoir être réutilisé.
+
+Les select ne sont que des tableaux de string, identifié par une clé.
+
+J'ai appelé mon composant MultipleSelect car il peut créer 0 à x select côté à côte.
+
+J'ai ajouté des tests, et j'ai ajusté ceux de DomainFilter, en mount le composant puisqu'il a un child.
+
+----------
+
+Avec plus de temps :
+- Comme dit précédemment, j'aurais installé plus de garde fou de qualité, a commencer par du lint, prettier, cypress
+- J'aurais installer une fakeApi, avec des données aléatoires (faker), pour avoir facilement beaucoup de cas de tests différents
+- Je serais aller cherche un meilleur design pour les select, sur MUI ou Ant Design par exemple
+- Faire des tests e2e avec Cypress
+- Installer un storybook, et remplir une stories en bonne et du forme pour le composant
+- Mettre à jour la stack, par exemple React 18, on est en début de projet
+
+Je me suis demandé si je devais partir sur de la généricité, mais il m'a semblé que des select seraient toujours constitué de string.
+
+Je m'arrête ici, en écrivant, j'ai très légèrement dépassé le chrono :)
