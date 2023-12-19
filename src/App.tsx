@@ -1,6 +1,6 @@
 // This file has to be left untouched
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 import DomainFilter from './components/DomainFilter';
 
 class App extends Component {
