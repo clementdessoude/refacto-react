@@ -6,12 +6,7 @@ export function domainsReducer(
   state = initialState,
   action: DomainsAction
 ): DomainsState {
-  switch (action.type) {
-    case RECEIVE_DOMAINS:
-      return action.domains
-    default:
-      return state
-  }
+  return action.type === RECEIVE_DOMAINS ? action.domains : state
 }
 
 export default domainsReducer
