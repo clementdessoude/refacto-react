@@ -1,76 +1,59 @@
 import React from 'react';
-import { threadId } from 'worker_threads';
-
-interface State {
-  countries: string[],
-  classifications: string[],
-  subClassifications: string[]
-}
 
 interface Props {
   domains: string[]
 }
 
-class DomainFilter extends React.Component<Props, State> {
-  componentDidMount() {
-    const { domains } = this.props
-    this.state = {
-      countries: [],
-      classifications: [],
-      subClassifications: []
-    }
+function filterDomains() {
+  const countriesSelect = document.getElementById('countriesSelect') as HTMLSelectElement;
+  const classificationsSelect = document.getElementById('classificationsSelect') as HTMLSelectElement;
+  const subClassificationsSelect = document.getElementById('subClassificationsSelect') as HTMLSelectElement;
 
-    const s: any = {};
+  const countries = Array.from(countriesSelect.selectedOptions).map((option) => option.value);
+  const classifications = Array.from(classificationsSelect.selectedOptions).map((option) => option.value);
+  const subClassifications = Array.from(subClassificationsSelect.selectedOptions).map((option) => option.value);
 
-    for(let i = 0; i < domains.length; i++) {
-      if (this.state.countries.indexOf(domains[i].substring(0,2)) <= 0) {
-        this.state.countries.push(domains[i].substring(0,2))
-      }
-      this.state.classifications.push(domains[i].substring(3,5));
-      let flag = false;
-      for(let j = 0; j < this.state.subClassifications.length; j++) {
-        if (this.state.subClassifications[j] == domains[i].substring(6)) {
-          flag = true
-          break;
-        }
-      }
-      if (!flag) {
-        this.state.subClassifications.push(domains[i].substring(6));
-      }
-    }
-
-    this.setState({
-      ...this.state,
-      classifications: this.state.classifications.filter((e, i, l) => l.indexOf(e) === i),
-    })
-    this.forceUpdate()
-  }
-
-  render() {
-    const {countries, classifications, subClassifications} = this.state || {
-      countries: [],
-      classifications: [],
-      subClassifications: []
-    };
-
-    return (<>
-      <select name="countries" multiple>
-        {countries.map(country => (
-          <option value={country} key={country}>{country}</option>
-        ))}
-      </select>
-      <select name="classifications" multiple>
-        {classifications.map(classification => (
-          <option value={classification} key={classification}>{classification}</option>
-        ))}
-      </select>
-      <select name="subClassifications" multiple>
-        {subClassifications.map(subClassification => (
-          <option value={subClassification} key={subClassification}>{subClassification}</option>
-        ))}
-      </select>
-    </>)
-  }
+  return window.open(`http://localhost:3000?countries=${countries.join(',')}&classifications=${classifications.join(',')}&subClassification=${subClassifications.join(',')}`, '_blank');
 }
+
+const DomainFilter: React.FC<Props> = ({ domains }) => {
+    return (
+    <>
+      <select id="countriesSelect" title="countriesSelect" name="countries" multiple>
+        {domains
+        .map((v) => v.substring(0, 2))
+        .filter((e, i, l) => l.indexOf(e) === i)
+        .map((country) => (
+          <option value={country} key={country}>
+            {country}
+          </option>
+        ))}
+      </select>
+      <select id="classificationsSelect" title="classificationsSelect" name="classifications" multiple>
+        {domains
+        .map((v) => v.substring(3, 5))
+        .filter((e, i, l) => l.indexOf(e) === i)
+        .map((classification) => (
+          <option value={classification} key={classification}>
+            {classification}
+          </option>
+        ))}
+      </select>
+      <select id="subClassificationsSelect" title="subClassificationsSelect" name="subClassifications" multiple>
+        {domains
+        .map((v) => v.substring(6))
+        .filter((e, i, l) => l.indexOf(e) === i)
+        .map((subClassification) => (
+          <option value={subClassification} key={subClassification}>
+            {subClassification}
+          </option>
+        ))}
+      </select>
+      <button id="filterButton" title="filterButton" type="button" onClick={() => filterDomains()}>
+        Filter
+      </button>
+    </>
+  );
+};
 
 export default DomainFilter
